@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 
-from reception.domain.exception.check_in import CheckInAuthenticationException, CheckInDateException
+from reception.domain.exception.check_in import (
+    CheckInAuthenticationException,
+    CheckInDateException,
+)
 from reception.domain.entity.reservation import Reservation
 from reception.domain.value_object.guest import mobile_type
 
@@ -14,7 +17,8 @@ class CheckInService:
         return (
             reservation.date_in - timedelta(hours=CheckInService._EARLY_CHECK_IN_OFFSET)
             <= datetime.utcnow()
-            <= reservation.date_out - timedelta(hours=CheckInService._LATE_CHECK_IN_OFFSET)
+            <= reservation.date_out
+            - timedelta(hours=CheckInService._LATE_CHECK_IN_OFFSET)
         )
 
     @staticmethod

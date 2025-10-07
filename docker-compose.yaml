@@ -1,0 +1,24 @@
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: my_mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ddd-hotel
+      MYSQL_DATABASE: ddd-hotel
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ddd-hotel
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+  adminer:
+    image: adminer
+    container_name: my_adminer_container
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql_db
+volumes:
+  mysql_data:
