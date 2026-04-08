@@ -26,7 +26,7 @@ def test_check_in(valid_reservation):
     [
         # Заехать нельзя в будущем
         datetime.utcnow() + timedelta(hours=1),
-        # Заехать нельзя на _EARLY_CHECK_IN_OFFSET часов раньше чем
+        # Заехать нельзя на _EARLY_CHECK_IN_OFFSET часов раньше (слишком рано)
         datetime.utcnow() - timedelta(hours=CheckInService._EARLY_CHECK_IN_OFFSET - 1),
     ],
 )
@@ -35,7 +35,7 @@ def test_check_in(valid_reservation):
     [
         # Не может быть такого, чтобы date_out > date_in
         datetime.utcnow() + timedelta(hours=1),
-        # Въехать нельзя за _LATE_CHECK_IN_OFFSET до date_out
+        # Въехать нельзя за _LATE_CHECK_IN_OFFSET до date_out (слишком поздно)
         datetime.utcnow() + timedelta(hours=CheckInService._LATE_CHECK_IN_OFFSET - 1),
     ],
 )
